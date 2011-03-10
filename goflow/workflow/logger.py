@@ -3,35 +3,6 @@ from django.conf import settings
 from django.db.models import get_model
 import sys
 
-try:
-    _file_log = settings.LOGGING_FILE
-    _LOG_FILE_NOTSET = False
-except AttributeError, e:
-    _LOG_FILE_NOTSET = True
-    _file_log = 'workflow.log'
-
-if settings.DEBUG:
-    level=logging.DEBUG
-else:
-    level=logging.INFO
-
-log_format='%(asctime)s %(levelname)s %(module)s.%(funcName)s: %(message)s'
-# python 2.4 ?
-if sys.version_info[:2]==(2,4):
-    log_format='%(asctime)s %(levelname)s %(module)s: %(message)s'
-# log_format='%(asctime)s %(levelname)s %(name)s.%(funcName)s: %(message)s'
-
-logging.basicConfig(
-    filename=_file_log,
-    level=level, 
-    format=log_format,
-    datefmt="%Y-%m-%d %H:%M:%S"
-)
-log = logging.getLogger('goflow.common')
-if _LOG_FILE_NOTSET:
-     log.warning('settings.LOGGING_FILE not set; default is workflow.log')
-
-
 class Log(object):
     def __init__(self, module):
         self.log = logging.getLogger(module)
