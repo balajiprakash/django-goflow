@@ -368,7 +368,7 @@ class WorkItem(models.Model):
     pull_roles = models.ManyToManyField(Group, related_name='pull_workitems', null=True, blank=True)
     blocked = models.BooleanField(default=False)
     priority = models.IntegerField(default=0)
-    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='inactive')
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='inactive', db_index=True)
 
     objects = WorkItemManager()
     
